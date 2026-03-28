@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>SafeRoutte - Empresa de Logística</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,
+    %3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E
+      %3Cpath d='M50 5L15 20V50C15 72.5 50 95 50 95C50 95 85 72.5 85 50V20L50 5Z' fill='none' stroke='%2300aaff' stroke-width='4'/%3E
+      %3Cpath d='M40 35L50 25L60 35M50 25V75M30 55L50 75L70 55' stroke='%2300aaff' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E
+      %3Ccircle cx='50' cy='50' r='5' fill='%23ffffff'/%3E
+    %3C/svg%3E">
+    
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #0a0a0a;
+      color: #e0e0e0;
+      scroll-behavior: smooth;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+      color: #00aaff;
+      letter-spacing: 1px;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(17, 17, 17, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      z-index: 1000;
+      box-sizing: border-box;
+      border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+    }
+
+    header nav a {
+      color: #e0e0e0;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    header nav a:hover {
+      color: #00aaff;
+    }
+
+    section {
+      padding: 100px 20px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("imagen.jpg");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      background-attachment: fixed;
+      margin: 0;
+      padding: 0 20px;
+      box-sizing: border-box;
+      max-width: none;
+    }
+    
+    .hero h1 {
+      font-size: clamp(32px, 8vw, 75px); 
+      margin-bottom: 20px;
+      font-weight: 900;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(0, 170, 255, 0.6), 3px 3px 10px rgba(0,0,0,0.9);
+    }
+
+    .hero p {
+      font-size: clamp(18px, 4vw, 24px);
+      margin-bottom: 35px;
+      font-weight: 600;
+      color: #f0f0f0;
+      max-width: 800px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    }
+
+    .hero button {
+      background: #00aaff;
+      border: none;
+      padding: 16px 35px;
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 170, 255, 0.4);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .hero button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(0, 170, 255, 0.7);
+      background: #33bbff;
+    }
+
+    .tech-card:hover, .card-servicio:hover {
+        border-color: #00a8ff !important;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 168, 255, 0.2);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header style="padding: 20px; display: flex; align-items: center; justify-content: space-between; background-color: #0a0e14; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #161b22;">
+    
+    <a href="#inicio" style="text-decoration: none; display: flex; align-items: center; gap: 12px; cursor: pointer;">
+    
+    <svg width="35" height="35" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(0, 170, 255, 0.6));">
+        <path d="M50 5L15 20V50C15 72.5 50 95 50 95C50 95 85 72.5 85 50V20L50 5Z" stroke="#00aaff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M40 35L50 25L60 35M50 25V75M30 55L50 75L70 55" stroke="#00aaff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="50" cy="50" r="5" fill="#ffffff"/>
+    </svg>
+
+    <div style="font-size: 24px; color: #ffffff;">
+        <strong>Safe<span style="color:#00aaff">Routte</span></strong>
+    </div>
+    </a> 
+    </div>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#Historia">Quienes Somos</a>
+      <a href="#Tecnologia">Tecnología</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#motos">Flota</a>
+    </nav>
+  </header>
+
+  <section class="hero visible" id="inicio" style="opacity: 1; transform: none;">
+    <h1>Safe <span style="color: #00aaff;">Routte</span></h1>
+    <p>· AMBA · CABA · Correo Argentino · Mercado Envíos ·</p>
+    <button id="btn-presupuesto">📩 Pedir Presupuesto</button>
+  </section>
+
+  <div id="seccion-formulario" style="display: none; padding: 100px 20px; background-color: #0d1117;">
+    <div style="max-width: 600px; margin: 0 auto; background: #161b22; padding: 40px; border-radius: 20px; border: 1px solid #30363d; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+      <h2 style="color: #00aaff; text-align: center; margin-bottom: 30px;">Solicitar Cotización</h2>
+      <form action="https://formspree.io/f/xgopovgd" method="POST">
+        <div style="margin-bottom: 20px;">
+          <label style="color: #00aaff; display: block; margin-bottom: 8px; font-weight: bold;">Nombre Completo</label>
+          <input type="text" name="nombre" placeholder="Tu nombre..." required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #0a0a0a; color: #fff; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 20px;">
+          <label style="color: #00aaff; display: block; margin-bottom: 8px; font-weight: bold;">Gmail / Email</label>
+          <input type="email" name="email" placeholder="ejemplo@gmail.com" required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #0a0a0a; color: #fff; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 30px;">
+          <label style="color: #00aaff; display: block; margin-bottom: 8px; font-weight: bold;">Mensaje / Pedido</label>
+          <textarea name="mensaje" rows="4" placeholder="¿Qué necesitas enviar? (Origen, destino, tamaño)" required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #0a0a0a; color: #fff; box-sizing: border-box; resize: none;"></textarea>
+        </div>
+        <button type="submit" style="width: 100%; background: #00aaff; color: white; border: none; padding: 18px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; text-transform: uppercase;">🚀 Enviar ahora</button>
+      </form>
+    </div>
+  </div>
+
+  <section id="Historia" style="padding: 60px 20px;">
+    <div style="max-width: 900px; margin: 0 auto; background: #161b22; border: 1px solid #30363d; padding: 40px; border-radius: 12px; border-left: 5px solid #00a8ff; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+        <h2 style="text-transform: uppercase; letter-spacing: 2px; margin-top: 0; font-size: 1.8rem;">Safe Routte</h2>
+        
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #d1d1d1; text-align: justify;">
+            <strong>SafeRoute</strong> fue fundada por <strong>Darío Valenzuela</strong>  quien tras 5 años liderando la logística de activos para los principales bancos del país en una multinacional, decidió volcar ese conocimiento y rigurosidad en su propia empresa.
+
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #d1d1d1; text-align: justify;">
+            Conocemos a fondo las fallas y la falta de confianza del mercado tradicional. Por eso, aplicamos 
+            <span style="color: #00a8ff; font-weight: bold;">PROCESOS DE ALTA SEGURIDAD</span> y una  
+            <span style="color: #00a8ff; font-weight: bold;">AGILIDAD REAL</span>.
+        </p>
+
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #d1d1d1; text-align: justify; margin-bottom: 0;">
+            Nuestro objetivo es claro: que tu mercadería nunca sea un problema, sino una solución integral para tu operativa.
+        </p>
+    </div>
+  </section>
+
+ <section id="Tecnologia" style="padding: 80px 20px; background-color: #0a0a0a; color: #ffffff; font-family: 'Segoe UI', sans-serif;">
+    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+        
+        <h2 style="color: #00a8ff; font-size: 2.5rem; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px;">
+            🤖 Tecnología: IA y Conectividad Total
+        </h2>
+        
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 40px;">
+            <div class="tech-card" style="background: #161b22; border: 1px solid #30363d; padding: 20px; border-radius: 12px; width: 260px; transition: 0.3s;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">📱</div>
+                <h4 style="color: #00a8ff; margin-bottom: 10px;">App Propia</h4>
+                <p style="font-size: 0.9rem; color: #8b949e;">Comunicación directa y constante entre Administración y Cadete.</p>
+            </div>
+
+            <div class="tech-card" style="background: #161b22; border: 1px solid #30363d; padding: 20px; border-radius: 12px; width: 260px; transition: 0.3s;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">🕒</div>
+                <h4 style="color: #00a8ff; margin-bottom: 10px;">Registro Full</h4>
+                <p style="font-size: 0.9rem; color: #8b949e;">Nombre, DNI y hora exacta registrados en cada entrega.</p>
+            </div>
+
+            <div class="tech-card" style="background: #161b22; border: 1px solid #30363d; padding: 20px; border-radius: 12px; width: 260px; transition: 0.3s;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">🤖</div>
+                <h4 style="color: #00a8ff; margin-bottom: 10px;">IA & Sheets</h4>
+                <p style="font-size: 0.9rem; color: #8b949e;">Automatización inteligente de reportes para evitar errores.</p>
+            </div>
+        </div>
+
+        <div style="background: #161b22; border: 1px solid #30363d; padding: 40px; border-radius: 12px; position: relative; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background-color: #00a8ff; border-radius: 12px 0 0 12px;"></div>
+            
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #d1d1d1; margin: 0;">
+                En <strong>SafeRoute</strong> no solo transportamos, procesamos datos. Nuestra <strong>App propia</strong> conecta en tiempo real a nuestra administración con el cadete, informando cada hito del proceso: 
+                <span style="color: #00a8ff; font-weight: bold;">PENDIENTE, RETIRADO, EN VIAJE y ENTREGADO.</span> 
+                <br><br>
+                Al finalizar el servicio, el sistema captura obligatoriamente el <strong>Nombre de quién recibe, su DNI y la hora exacta</strong>, garantizando un cierre de operación transparente. 
+                <br><br>
+                Implementamos <strong>Inteligencia Artificial vinculada a Google Sheets</strong> para automatizar la gestión de datos, eliminando la carga manual y garantizando que la información fluya sin errores humanos.
+            </p>
+        </div>
+    </div>
+ </section>
+
+ <style>
+    .tech-card:hover {
+        border-color: #00a8ff !important;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 168, 255, 0.2);
+    }
+  </style>
+
+ <section id="servicios" style="padding: 80px 20px; background-color: #0a0a0a; font-family: 'Segoe UI', sans-serif;">
+    <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
+        
+        <h2 style="color: #00a8ff; font-size: 2.5rem; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px;">
+            Nuestros Servicios
+        </h2>
+
+        <div style="background: #161b22; border: 1px solid #30363d; padding: 40px; border-radius: 12px; position: relative; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 40px;">
+            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background-color: #00a8ff; border-radius: 12px 0 0 12px;"></div>
+            
+            <p style="color: #d1d1d1; font-size: 1.1rem; line-height: 1.6; margin: 0;">
+                Ofrecemos soluciones de alta exigencia corporativa, desde activos bancarios hasta <strong>Envíos Flex y Colecta de Mercado Libre.</strong> en <strong>SafeRoute</strong> aplicamos rigurosidad técnica y seguridad verificada para garantizar entregas en el día, protegiendo su reputación con la velocidad que el mercado exige
+            </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+            
+            <div class="card-servicio" style="background: #161b22; border: 1px solid #30363d; padding: 30px; border-radius: 12px; transition: 0.3s; text-align: left;">
+                <div style="font-size: 2rem; margin-bottom: 15px;">🔄</div>
+                <p style="color: #ffffff; font-size: 1.1rem; font-weight: 500; margin: 0;">Onboarding y Offboarding de activos.</p>
+                <p style="color: #8b949e; font-size: 0.9rem; margin: 0;">Gestión eficiente de entrega y retiro de equipamiento para personal IT y corporativo.</p>
+            </div>
+
+            <div class="card-servicio" style="background: #161b22; border: 1px solid #30363d; padding: 30px; border-radius: 12px; transition: 0.3s; text-align: left;">
+                <div style="font-size: 2rem; margin-bottom: 15px;">📦</div>
+                <p style="color: #ffffff; font-size: 1.1rem; font-weight: 500; margin: 0;">Envios de Mercado Libre</p>
+                <p style="color: #8b949e; font-size: 0.9rem; margin: 0;">Especialistas en <strong>Flex y Colecta</strong>. Entregas en el día con rastreo en tiempo real.</p>
+            </div>
+
+            <div class="card-servicio" style="background: #161b22; border: 1px solid #30363d; padding: 30px; border-radius: 12px; transition: 0.3s; text-align: left;">
+                <div style="font-size: 2rem; margin-bottom: 15px;">🏢</div>
+                <p style="color: #ffffff; font-size: 1.1rem; font-weight: 500; margin: 0;">E-Commerce</p>
+                <p style="color: #8b949e; font-size: 0.9rem; margin: 0;">Soluciones logísticas integrales para tiendas online que buscan escala y rapidez.</p>
+            </div>
+
+            <div class="card-servicio" style="background: #161b22; border: 1px solid #30363d; padding: 30px; border-radius: 12px; transition: 0.3s; text-align: left;">
+                <div style="font-size: 2rem; margin-bottom: 15px;">📩</div>
+                <p style="color: #ffffff; font-size: 1.1rem; font-weight: 500; margin: 0;">Gestión logística de correo: Correo Argentino y Andreani.</p>
+                <p style="color: #8b949e; font-size: 0.9rem; margin: 0;">Operativa directa con Correo Argentino y Andreani para despachos masivos.</p>
+            </div>
+
+            <div class="card-servicio" style="background: #161b22; border: 1px solid #30363d; padding: 30px; border-radius: 12px; transition: 0.3s; text-align: left;">
+                <div style="font-size: 2rem; margin-bottom: 15px;">🏢</div>
+                <p style="color: #ffffff; font-size: 1.1rem; font-weight: 500; margin: 0;">Trabajos particulares y empresariales.</p>
+                <p style="color: #8b949e; font-size: 0.9rem; margin: 0;">Servicios personalizados a medida de cada necesidad logística puntual.</p>
+            </div>
+
+            <div class="card-servicio" style="background: #161b22; border: 1px solid #30363d; padding: 30px; border-radius: 12px; transition: 0.3s; text-align: left;">
+                <div style="font-size: 2rem; margin-bottom: 15px;">🚚</div>
+                <p style="color: #ffffff; font-size: 1.1rem; font-weight: 500; margin: 0;">Envío de paquetería.</p>
+                <p style="color: #8b949e; font-size: 0.9rem; margin: 0;">Transporte seguro de bultos medianos y pequeños con máxima prioridad.</p>
+            </div>
+
+            <div class="card-servicio" style="background: #161b22; border: 1px solid #30363d; padding: 30px; border-radius: 12px; transition: 0.3s; text-align: left;">
+                <div style="font-size: 2rem; margin-bottom: 15px;">👥</div>
+                <p style="color: #ffffff; font-size: 1.1rem; font-weight: 500; margin: 0;">Traslados de personal.</p>
+                <p style="color: #8b949e; font-size: 0.9rem; margin: 0;">Movilidad ejecutiva y operativa con puntualidad y seguridad garantizada.</p>
+            </div>
+
+            <div class="card-servicio" style="background: #161b22; border: 1px solid #30363d; padding: 30px; border-radius: 12px; transition: 0.3s; text-align: left;">
+                <div style="font-size: 2rem; margin-bottom: 15px;">📦</div>
+                <p style="color: #ffffff; font-size: 1.1rem; font-weight: 500; margin: 0;">Almacenamiento estratégico y entregas programadas.</p>
+                <p style="color: #8b949e; font-size: 0.9rem; margin: 0;">Guardado de stock estratégico y distribución planificada para empresas.</p>
+            </div>
+
+            <div class="card-servicio" style="background: #161b22; border: 1px solid #00aaff; padding: 30px; border-radius: 12px; transition: 0.3s; text-align: left; position: relative; box-shadow: 0 0 15px rgba(0, 170, 255, 0.1);">
+            <div style="font-size: 2rem; margin-bottom: 15px;">🎁</div>
+                <p style="color: #ffffff; font-size: 1.1rem; font-weight: 500; margin: 0;">Promociones Exclusivas</p>
+                <p style="color: #8b949e; font-size: 0.9rem; margin: 0;">Accedé a tarifas preferenciales y bonificaciones especiales al contratar <strong>paquetes de viajes mensuales</strong> o envíos masivos.</p>
+        </div>
+    </div>
+ </section> 
+ <style>
+    .card-servicio:hover {
+        border-color: #00a8ff !important;
+        background: #1c2128 !important;
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+    }
+ </style>
+
+ <section id="motos" style="padding: 80px 20px; background-color: #0a0a0a; font-family: 'Segoe UI', sans-serif;">
+    <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+        
+        <h2 style="color: #00a8ff; font-size: 2.2rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px;">
+            Nuestra Flota Logística
+        </h2>
+        
+        <div style="background: #161b22; border: 1px solid #30363d; padding: 40px; border-radius: 12px; position: relative; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 40px;">
+            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background-color: #00a8ff; border-radius: 12px 0 0 12px;"></div>
+            
+            <p style="color: #d1d1d1; font-size: 1.1rem; line-height: 1.6; margin: 0;">
+                Contamos con unidades propias y diversificadas para adaptarnos a la escala de cada envío. 
+                Garantizamos <strong>seguridad, legalidad y respuesta inmediata</strong> en Lomas de Zamora y alrededores para que su operativa nunca se detenga.
+            </p>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+            <div class="tech-card" style="background: #161b22; border: 1px solid #30363d; padding: 30px; border-radius: 12px; width: 300px; transition: 0.3s; border-top: 4px solid #00a8ff;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">🏍️</div>
+                <h3 style="color: #ffffff; margin-bottom: 10px;">Unidades Ágiles</h3>
+                <p style="color: #8b949e; font-size: 0.95rem;">
+                    Motos propias equipadas para envíos rápidos, documentos y paquetería liviana. Papeles al día y rastreo constante.
+                </p>
+            </div>
+
+            <div class="tech-card" style="background: #161b22; border: 1px solid #30363d; padding: 30px; border-radius: 12px; width: 300px; transition: 0.3s; border-top: 4px solid #00a8ff;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">🚗</div>
+                <h3 style="color: #ffffff; margin-bottom: 10px;">Unidad de Carga</h3>
+                <p style="color: #8b949e; font-size: 0.95rem;">
+                    Vehículo dedicado para bultos de mayor volumen, activos bancarios sensibles o días de lluvia.
+                </p>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; display: inline-block; padding: 12px 30px; border: 1px dashed #00a8ff; border-radius: 50px; color: #00a8ff; font-weight: bold; font-size: 0.9rem; background: rgba(0, 168, 255, 0.05);">
+            🛡️ TODAS LAS UNIDADES POSEEN SEGURO Y DOCUMENTACIÓN AL DÍA
+        </div>
+    </div>
+ </section>
+
+ <section id="Contacto" style="padding: 80px 20px; background-color: #0a0a0a; font-family: 'Segoe UI', sans-serif;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        
+        <div style="background: #161b22; border: 1px solid #30363d; padding: 50px 40px; border-radius: 12px; position: relative; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            
+            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background-color: #00a8ff; border-radius: 12px 0 0 12px;"></div>
+            
+            <div style="width: 160px; height: 160px; margin: 0 auto 20px; border-radius: 50%; border: 3px solid #00a8ff; box-shadow: 0 0 25px rgba(0, 168, 255, 0.4); overflow: hidden;">
+                <img src="DARIO.jpg" alt="Darío Valenzuela" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+
+            <h3 style="color: #ffffff; margin: 10px 0 5px 0; font-size: 1.8rem; letter-spacing: 1px;">Darío Valenzuela</h3>
+            <p style="color: #00a8ff; font-weight: bold; margin: 0 0 30px 0; font-size: 1rem; text-transform: uppercase; letter-spacing: 2px;">Fundador & Director de Operaciones</p>
+            
+            <p style="color: #d1d1d1; font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto;">
+                Comprometidos con la excelencia y la seguridad que su empresa merece. 
+                Llevamos la rigurosidad bancaria a cada envío.
+            </p>
+        </div>
+
+        <footer style="margin-top: 60px; padding-top: 20px; border-top: 1px solid #161b22; color: #484f58; font-size: 0.9rem; text-align: center;">
+            <p><strong>SafeRoute</strong> &copy; 2026 - Logística de Precisión Bancaria</p>
+            <p>safe.routte@gmail.com | +54 9 11-3112-3944 | Lomas de Zamora, Buenos Aires</p>
+        </footer>
+    </div>
+ </section>
+
+
+  <script>
+    window.addEventListener('load', function() {
+        const btn = document.getElementById('btn-presupuesto');
+        const formSeccion = document.getElementById('seccion-formulario');
+        const elFormulario = formSeccion.querySelector('form');
+
+        // 1. Abrir formulario
+        btn.addEventListener('click', function() {
+            formSeccion.style.display = 'block';
+            formSeccion.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // 2. Envío inteligente (AJAX)
+        elFormulario.addEventListener("submit", function(ev) {
+            ev.preventDefault(); // Evita que la página se vaya a Formspree
+            const data = new FormData(elFormulario);
+            const btnEnviar = elFormulario.querySelector('button');
+            btnEnviar.innerText = "Enviando...";
+            btnEnviar.disabled = true;
+
+            fetch(elFormulario.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    elFormulario.innerHTML = "<h3 style='color:#00aaff; text-align:center;'>✅ ¡RECIBIDO! En breve, un integrante de nuestro equipo l@ contactara.</h3>";
+                    setTimeout(() => {
+                        formSeccion.style.display = 'none'; // Se cierra solo después de 4 segundos
+                    }, 4000);
+                } else {
+                    alert("Ocurrió un error. Intentá de nuevo.");
+                    btnEnviar.innerText = "Enviar ahora";
+                    btnEnviar.disabled = false;
+                }
+            });
+        });
+
+        // 3. Animación de aparición suave
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    });
+  </script>
+
+  <a href="https://wa.me/5491131123944?text=Hola%20!Buen%20Dia!%20Necesitaria%20saber%20mas%20info%20sobre%20sus%20servicios" 
+   style="position:fixed; width:60px; height:60px; bottom:30px; right:30px; background-color:#25d366; color:#FFF; border-radius:50px; text-align:center; font-size:30px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); z-index:9999; display:flex; align-items:center; justify-content:center; text-decoration:none; transition: 0.3s;" 
+   target="_blank"
+   onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 6px 20px rgba(37, 211, 102, 0.5)'" 
+   onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.4)'">
+    
+    <svg width="35" height="35" viewBox="0 0 448 512" fill="white">
+        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.1 0-65.6-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.4 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.2-16.4-14.6-27.4-32.7-30.6-38.2-3.2-5.6-.3-8.6 2.4-11.3 2.5-2.6 5.5-6.5 8.3-9.8 2.8-3.3 3.7-5.6 5.5-9.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.4-29.8-17-41-4.5-10.9-9.1-9.4-12.4-9.6H141c-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.8 23.5 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.5 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+    </svg>
+  </a>
+
+  <a href="https://wa.me/TU_NUMERO_ACA" style="position:fixed; width:60px; height:60px; bottom:40px; right:40px; background-color:#25d366; color:#FFF; border-radius:50px; text-align:center; font-size:30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.5); z-index:1000; display:flex; align-items:center; justify-content:center; text-decoration:none;" target="_blank">
+    <span style="margin-bottom: 4px;">&#10003;</span> </a>
+
+</body>
+</html>
